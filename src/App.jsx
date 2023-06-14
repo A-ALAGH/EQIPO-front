@@ -7,7 +7,7 @@ import {FaSun, FaMoon, FaFacebook} from 'react-icons/fa'
 import Carousel from './components/carousel/carousel'
 import { Card, IconButton } from '@chakra-ui/react'
 import { useColorMode } from '@chakra-ui/color-mode';
-import { Button } from '@chakra-ui/react'
+import { Button, SimpleGrid } from '@chakra-ui/react'
 import CardProfile from './components/cardProfile/CardProfile'
 import CardEvent from './components/cardEvent/CardEvent'
 function App() {
@@ -24,8 +24,9 @@ function App() {
         </Heading>
       </Flex>
     </VStack> */}
-    {/* <CardProfile/> */}
-    <CardEvent/>
+    <SimpleGrid columns={3}>
+    <CardEvent/>    <CardEvent/>        <CardProfile/>
+    </SimpleGrid>
 
     <div>
       <div>
