@@ -1,12 +1,14 @@
 import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import logoImagedark from "../logo/eqipo_logo.png";
 
-export default function Logo(props) {
+
+const Logo = (props) => {
   return (
-    <Box {...props}>
-      <Text fontSize="lg" fontWeight="bold">
-        LOGO
-      </Text>
-    </Box>
+    <div {...props}>
+      <img src={logoImagedark} alt="Logo" style={{height:"100px"}}/>
+    </div>
   );
-}
+};
+
+export default Logo;
+
