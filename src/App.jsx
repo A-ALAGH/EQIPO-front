@@ -7,9 +7,12 @@ import {FaSun, FaMoon, FaFacebook} from 'react-icons/fa'
 import Carousel from './components/carousel/carousel'
 import { Card, IconButton } from '@chakra-ui/react'
 import { useColorMode } from '@chakra-ui/color-mode';
-import { Button, SimpleGrid } from '@chakra-ui/react'
+import { Button, SimpleGrid, Center } from '@chakra-ui/react'
 import CardProfile from './components/cardProfile/CardProfile'
 import CardEvent from './components/cardEvent/CardEvent'
+import Footer from './components/footer/Footer'
+import SignInForm from './components/signInForm/SignInForm'
+import SignupCard from './components/SignUp/SignUp'
 function App() {
   const [count, setCount] = useState(0);
 
@@ -17,6 +20,7 @@ function App() {
     <div>
     <Header/>
     <Carousel/>
+    <SignupCard/>
     {/* <VStack p={5}>
       <Flex w="100%">
         <Heading ml={8} size="md" fontWeight="semibold" color="cyan.400">
@@ -24,9 +28,10 @@ function App() {
         </Heading>
       </Flex>
     </VStack> */}
-    <SimpleGrid columns={3}>
-    <CardEvent/>    <CardEvent/>        <CardProfile/>
+    <SimpleGrid columns={3} minChildWidth="150px" spacing="10px" >
+    <CardEvent/> <CardEvent/> <CardEvent/>
     </SimpleGrid>
+    <Footer/>
 
     <div>
       <div>
