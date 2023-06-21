@@ -11,29 +11,24 @@ import { Button, SimpleGrid, Center } from '@chakra-ui/react'
 import CardProfile from './components/cardProfile/CardProfile'
 import CardEvent from './components/cardEvent/CardEvent'
 import Footer from './components/footer/Footer'
-import SignInForm from './components/signInForm/SignInForm'
+// import SignInForm from './components/signInForm/SignInForm'
 import SignupCard from './components/SignUp/SignUp'
+import { Routes, Route} from 'react-router-dom'
+import Home from './pages/Home'
+import Profil from './pages/Profil'
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div>
     <Header/>
-    <Carousel/>
-    <SignupCard/>
-    {/* <VStack p={5}>
-      <Flex w="100%">
-        <Heading ml={8} size="md" fontWeight="semibold" color="cyan.400">
-          EQIPO
-        </Heading>
-      </Flex>
-    </VStack> */}
-    <SimpleGrid columns={3} minChildWidth="150px" spacing="10px" >
-    <CardEvent/> <CardEvent/> <CardEvent/>
-    </SimpleGrid>
+    <Routes>
+    <Route path='/' element ={<Home/>}/>
+    <Route path='/profile' element ={<Profil/>}/>
+      
+      
+    </Routes>
     <Footer/>
 
-    <div>
+    {/* <div>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -57,8 +52,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+    </div> */}
     </div>
-    </div>
+    
   )
 }
 
