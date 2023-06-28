@@ -16,13 +16,14 @@ import SignupCard from './components/SignUp/SignUp'
 import { Routes, Route} from 'react-router-dom'
 import Home from './pages/Home'
 import Profil from './pages/Profil'
+import SignUp from './pages/SignUpPage'
 function App() {
   return (
     <div>
     <Header/>
     <Routes>
     <Route path='/' element ={<Home/>}/>
-    <Route path='/profile' element ={<Profil/>}/>
+    <Route path='/profile' element ={<SignUp/>}/>
       
       
     </Routes>

@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './carousel.css';
 
+import streetFootballImage from '../../assets/Street_Football_(Unsplash).png';
+
 class Carousel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [
+        streetFootballImage,
         'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/HA1RQCRQJ7.jpg',
         'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/EVHXF4MUT6.jpg',
         'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/D7VE3SK3RD.jpg',
