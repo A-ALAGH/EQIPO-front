@@ -46,22 +46,74 @@ export default function JoinOurTeam() {
     email: '',
     password: ''
   });
+  const [pseudoError, setPseudoError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setPseudoError('');
+    setEmailError('');
+    setPasswordError('');
+    setError('');
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    try {
-      console.log('absoudh');
-      const response = await axios.post('http://localhost:5000/api/user/register', formData);
-      console.log(response.data); // Gérez la réponse du backend selon vos besoins
-    } catch (error) {
-      console.error(error); // Gérez l'erreur selon vos besoins
-      console.log('absoudh1');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (formData.pseudo.length < 4) {
+    setPseudoError('Le pseudo doit contenir au moins 4 caractères.');
+    return;
+  }
+
+  if (!validateEmail(formData.email)) {
+    setEmailError('Adresse e-mail invalide.');
+    return;
+  }
+
+  if (formData.password.length < 6) {
+    setPasswordError('Le mot de passe doit contenir au moins 6 caractères.');
+    return;
+  }
+
+  try {
+    // Effectuer une requête pour vérifier si le pseudo ou l'email existe déjà
+    const checkDuplicateResponse = await axios.post('http://localhost:5000/api/user/check-duplicate', {
+      pseudo: formData.pseudo,
+      email: formData.email,
+    });
+
+    if (checkDuplicateResponse.data.pseudoExists) {
+      setPseudoError('Ce pseudo est déjà utilisé. Veuillez en choisir un autre.');
+      return;
     }
+
+    if (checkDuplicateResponse.data.emailExists) {
+      setEmailError('Cet e-mail est déjà utilisé. Veuillez en choisir un autre.');
+      return;
+    }
+
+    // Si les vérifications passent, procéder à l'inscription de l'utilisateur
+    const response = await axios.post('http://localhost:5000/api/user/register', formData);
+    console.log(response.data); // Gérez la réponse du backend selon vos besoins
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.message) {
+      setError(error.response.data.message);
+    } else {
+      console.error(error); // Gérez l'erreur selon vos besoins
+      setError('Une erreur s\'est produite. Veuillez réessayer plus tard.');
+    }
+  }
+};
+
+  
+  
+
+  const validateEmail = (email) => {
+    // Vérifiez le format de l'email ici
+    return /\S+@\S+\.\S+/.test(email);
   };
 
   return (
@@ -157,6 +209,7 @@ export default function JoinOurTeam() {
                 value={formData.pseudo}
                 onChange={handleChange}
               />
+              {pseudoError && <Text color="red.500">{pseudoError}</Text>}
               <Input
                 name="email"
                 placeholder="Email"
@@ -169,6 +222,7 @@ export default function JoinOurTeam() {
                 value={formData.email}
                 onChange={handleChange}
               />
+              {emailError && <Text color="red.500">{emailError}</Text>}
               <Input
                 name="password"
                 type="password"
@@ -182,6 +236,7 @@ export default function JoinOurTeam() {
                 value={formData.password}
                 onChange={handleChange}
               />
+              {passwordError && <Text color="red.500">{passwordError}</Text>}
             </Stack>
             <Button
               fontFamily="heading"
@@ -226,3 +281,4 @@ export const Blur = (props) => {
     </Icon>
   );
 };
+

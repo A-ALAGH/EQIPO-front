@@ -77,7 +77,7 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to="/sports">Sports</MenuItem>
         <MenuItem to="/loisirs">Loisirs</MenuItem>
         <MenuItem to="/travailgroupe">Travail De Groupe</MenuItem>
-        <MenuItem to="/profile" isLast>
+        <MenuItem to="/register" isLast>
           <Button size="sm" rounded="md">
             Create Account
           </Button>
