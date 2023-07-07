@@ -50,6 +50,7 @@ export default function JoinOurTeam() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -57,62 +58,58 @@ export default function JoinOurTeam() {
     setEmailError('');
     setPasswordError('');
     setError('');
+    setSuccess(false);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (formData.pseudo.length < 4) {
-    setPseudoError('Le pseudo doit contenir au moins 4 caractères.');
-    return;
-  }
-
-  if (!validateEmail(formData.email)) {
-    setEmailError('Adresse e-mail invalide.');
-    return;
-  }
-
-  if (formData.password.length < 6) {
-    setPasswordError('Le mot de passe doit contenir au moins 6 caractères.');
-    return;
-  }
-
-  try {
-    // Effectuer une requête pour vérifier si le pseudo ou l'email existe déjà
-    const checkDuplicateResponse = await axios.post('http://localhost:5000/api/user/check-duplicate', {
-      pseudo: formData.pseudo,
-      email: formData.email,
-    });
-
-    if (checkDuplicateResponse.data.pseudoExists) {
-      setPseudoError('Ce pseudo est déjà utilisé. Veuillez en choisir un autre.');
+    if (formData.pseudo.length < 4) {
+      setPseudoError('Le pseudo doit contenir au moins 4 caractères.');
       return;
     }
 
-    if (checkDuplicateResponse.data.emailExists) {
-      setEmailError('Cet e-mail est déjà utilisé. Veuillez en choisir un autre.');
+    if (!validateEmail(formData.email)) {
+      setEmailError('Adresse e-mail invalide.');
       return;
     }
 
-    // Si les vérifications passent, procéder à l'inscription de l'utilisateur
-    const response = await axios.post('http://localhost:5000/api/user/register', formData);
-    console.log(response.data); // Gérez la réponse du backend selon vos besoins
-  } catch (error) {
-    if (error.response && error.response.data && error.response.data.message) {
-      setError(error.response.data.message);
-    } else {
-      console.error(error); // Gérez l'erreur selon vos besoins
-      setError('Une erreur s\'est produite. Veuillez réessayer plus tard.');
+    if (formData.password.length < 6) {
+      setPasswordError('Le mot de passe doit contenir au moins 6 caractères.');
+      return;
     }
-  }
-};
 
-  
-  
+    try {
+      const checkDuplicateResponse = await axios.post('http://localhost:5000/api/user/check-duplicate', {
+        pseudo: formData.pseudo,
+        email: formData.email,
+      });
+
+      if (checkDuplicateResponse.data.pseudoExists) {
+        setPseudoError('Ce pseudo est déjà utilisé. Veuillez en choisir un autre.');
+        return;
+      }
+
+      if (checkDuplicateResponse.data.emailExists) {
+        setEmailError('Cet e-mail est déjà utilisé. Veuillez en choisir un autre.');
+        return;
+      }
+
+      const response = await axios.post('http://localhost:5000/api/user/register', formData);
+      console.log(response.data);
+      
+      setSuccess(true);
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        console.error(error);
+        setError("Une erreur s'est produite. Veuillez réessayer plus tard.");
+      }
+    }
+  };
 
   const validateEmail = (email) => {
-    // Vérifiez le format de l'email ici
     return /\S+@\S+\.\S+/.test(email);
   };
 
@@ -252,6 +249,9 @@ const handleSubmit = async (e) => {
             >
               Submit
             </Button>
+            {success && (
+              <Text color="green.500" fontWeight="bold">Enregistrement réussi !</Text>
+            )}
           </Box>
         </Stack>
       </Container>
@@ -280,5 +280,4 @@ export const Blur = (props) => {
       <circle cx="426.5" cy="-0.5" r="101.5" fill="#4299E1" />
     </Icon>
   );
-};
-
+}
