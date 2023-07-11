@@ -16,6 +16,7 @@ import {
   useBreakpointValue,
   Icon
 } from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const avatars = [
   {
@@ -51,6 +52,7 @@ export default function JoinOurTeam() {
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -109,6 +111,10 @@ export default function JoinOurTeam() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const validateEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email);
   };
@@ -144,7 +150,7 @@ export default function JoinOurTeam() {
                     position: 'absolute',
                     zIndex: -1,
                     top: 0,
-                    left: 0,
+                    left: 0
                   }}
                 />
               ))}
@@ -220,19 +226,36 @@ export default function JoinOurTeam() {
                 onChange={handleChange}
               />
               {emailError && <Text color="red.500">{emailError}</Text>}
-              <Input
-                name="password"
-                type="password"
-                placeholder="Password"
-                bg="gray.100"
-                border={0}
-                color="gray.500"
-                _placeholder={{
-                  color: 'gray.500',
-                }}
-                value={formData.password}
-                onChange={handleChange}
-              />
+              <div style={{ position: "relative" }}>
+      <Input
+        name="password"
+        type={showPassword ? "text" : "password"}
+        placeholder="Password"
+        bg="gray.100"
+        border={0}
+        color="gray.500"
+        _placeholder={{
+          color: 'gray.500',
+        }}
+value={formData.password}
+        onChange={handleChange}
+      />
+      <Button
+        style={{
+          position: "absolute",
+          right: "0.75rem",
+          top: "50%",
+          transform: "translateY(-50%)",
+          cursor: "pointer",
+          background: "none",
+          border: "none",
+          color: "black"
+        }}
+        onClick={togglePasswordVisibility}
+      >
+        {showPassword ? <ViewOffIcon /> : <ViewIcon />}
+      </Button>
+    </div>
               {passwordError && <Text color="red.500">{passwordError}</Text>}
             </Stack>
             <Button
@@ -280,4 +303,4 @@ export const Blur = (props) => {
       <circle cx="426.5" cy="-0.5" r="101.5" fill="#4299E1" />
     </Icon>
   );
-}
+};
