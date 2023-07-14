@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from 'react';
 import axios from 'axios';
+import { useAuthUser } from 'react-auth-kit';
 import {
   Box,
   Flex,
@@ -42,6 +43,7 @@ const avatars = [
 ];
 
 export default function JoinOurTeam() {
+  const authUser = useAuthUser();
   const [formData, setFormData] = useState({
     pseudo: '',
     email: '',
@@ -99,8 +101,12 @@ export default function JoinOurTeam() {
 
       const response = await axios.post('http://localhost:5000/api/user/register', formData);
       console.log(response.data);
-      
+      localStorage.token = response.data.token
       setSuccess(true);
+
+      // Connexion de l'utilisateur après son inscription
+      // authUser.setToken(response.data.token); // Assurez-vous que votre API renvoie le token d'authentification
+      // authUser().setExpiresAt(response.data.expiresAt); // Assurez-vous que votre API renvoie la date d'expiration du token
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         setError(error.response.data.message);
@@ -124,11 +130,7 @@ export default function JoinOurTeam() {
       <Container as={SimpleGrid} maxW="7xl" columns={{ base: 1, md: 2 }} spacing={{ base: 10, lg: 32 }} py={{ base: 10, sm: 20, lg: 32 }}>
         <Stack spacing={{ base: 10, md: 20 }}>
           <Heading lineHeight={1.1} fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}>
-            Senior web designers{' '}
-            <Text as="span" bgGradient="linear(to-r, red.400,pink.400)" bgClip="text">
-              &amp;
-            </Text>{' '}
-            Full-Stack Developers
+            Loisirs, sport et travail de groupe, formez et rejoignez des equipes près de chez vous.{' '}
           </Heading>
           <Stack direction="row" spacing={4} align="center">
             <AvatarGroup>
@@ -195,7 +197,7 @@ export default function JoinOurTeam() {
               </Text>
             </Heading>
             <Text color="gray.500" fontSize={{ base: 'sm', sm: 'md' }}>
-              We're looking for amazing engineers just like you! Become a part of our rockstar engineering team and skyrocket your career!
+              Loisirs, sport et travail de groupe, formez et rejoignez des equipes près de chez vous.
             </Text>
           </Stack>
           <Box as="form" mt={10}>
@@ -227,35 +229,35 @@ export default function JoinOurTeam() {
               />
               {emailError && <Text color="red.500">{emailError}</Text>}
               <div style={{ position: "relative" }}>
-      <Input
-        name="password"
-        type={showPassword ? "text" : "password"}
-        placeholder="Password"
-        bg="gray.100"
-        border={0}
-        color="gray.500"
-        _placeholder={{
-          color: 'gray.500',
-        }}
-value={formData.password}
-        onChange={handleChange}
-      />
-      <Button
-        style={{
-          position: "absolute",
-          right: "0.75rem",
-          top: "50%",
-          transform: "translateY(-50%)",
-          cursor: "pointer",
-          background: "none",
-          border: "none",
-          color: "black"
-        }}
-        onClick={togglePasswordVisibility}
-      >
-        {showPassword ? <ViewOffIcon /> : <ViewIcon />}
-      </Button>
-    </div>
+                <Input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  bg="gray.100"
+                  border={0}
+                  color="gray.500"
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                <Button
+                  style={{
+                    position: "absolute",
+                    right: "0.75rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    background: "none",
+                    border: "none",
+                    color: "black"
+                  }}
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                </Button>
+              </div>
               {passwordError && <Text color="red.500">{passwordError}</Text>}
             </Stack>
             <Button

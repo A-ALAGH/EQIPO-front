@@ -1,18 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-import {Navigate, useNavigate} from 'react-router-dom'
+const RedirectToLogin = () => {
+  const navigate = useNavigate();
+  navigate('/login');
+  return null;
+};
 
 const useUserId = () => {
-    const navigate = useNavigate()
-    if(localStorage.token){
-        const userId = localStorage.token;
-        return userId
-    }else{
-    //    return <Navigate to='/login' replace /> 
-    navigate('/login')
-    }
-    // return userId;
-  
-}
+  if (localStorage.token) {
+    const userId = localStorage.token;
+    return userId;
+  } else {
+    return <Navigate to="/login" replace />;
+  }
+};
 
-export default useUserId
+export default useUserId;

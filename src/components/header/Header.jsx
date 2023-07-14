@@ -20,7 +20,9 @@ const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-
+const handleLogout = ()=>{
+  localStorage.removeItem('token');
+}
   return (
     <Flex
       as="nav"
@@ -35,6 +37,7 @@ const NavBar = (props) => {
       <>
         <LogoWithButton/>
         <ToggleColorMode />
+        <button onClick={handleLogout}> loggout</button>
         <MenuToggle toggle={toggle} isOpen={isOpen} />
         <MenuLinks isOpen={isOpen} />
       </>
