@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Button,
   Checkbox,
@@ -13,27 +14,53 @@ import {
 } from '@chakra-ui/react';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/login', {
+        email,
+        password,
+      });
+
+      // Traitez la réponse du backend ici...
+
+      console.log(response.data);
+      localStorage.token = response.data.token
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Stack minH="100vh" direction={{ base: 'column', md: 'row' }}>
       <Flex p={8} flex={1} align="center" justify="center">
-        <Stack spacing={4} w="full" maxW="md">
-          <Heading fontSize="2xl">Sign in to your account</Heading>
-          <FormControl id="email">
-            <FormLabel>Email address</FormLabel>
-            <Input type="email" />
-          </FormControl>
-          <FormControl id="password">
-            <FormLabel>Password</FormLabel>
-            <Input type="password" />
-          </FormControl>
-          <Stack spacing={6}>
-            <Stack direction={{ base: 'column', sm: 'row' }} align="start" justify="space-between">
-              <Checkbox>Remember me</Checkbox>
-              <Link color="blue.500">Forgot password?</Link>
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={4} w="full" maxW="md">
+            <Heading fontSize="2xl">Sign in to your account</Heading>
+            <FormControl id="email">
+              <FormLabel>Email address</FormLabel>
+              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </FormControl>
+            <Stack spacing={6}>
+              <Stack direction={{ base: 'column', sm: 'row' }} align="start" justify="space-between">
+                <Checkbox>Remember me</Checkbox>
+                <Link color="blue.500">Forgot password?</Link>
+              </Stack>
+              <Button colorScheme="blue" variant="solid" type="submit">
+                Sign in
+              </Button>
             </Stack>
-            <Button colorScheme="blue" variant="solid">Sign in</Button>
           </Stack>
-        </Stack>
+        </form>
       </Flex>
       <Flex flex={1}>
         <Image

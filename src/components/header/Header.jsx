@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
 import ToggleColorMode from "../toggleColorMode/toggleColorMode";
 import Logo from "../logo/Logo";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { useAuthUser } from "react-auth-kit";
 
 const LogoWithButton = ({ text }) => {
   return (
@@ -17,12 +18,14 @@ const LogoWithButton = ({ text }) => {
 };
 
 const NavBar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const { authUser } = useAuthUser();
 
   const toggle = () => setIsOpen(!isOpen);
-const handleLogout = ()=>{
-  localStorage.removeItem('token');
-}
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  };
+
   return (
     <Flex
       as="nav"
@@ -35,11 +38,14 @@ const handleLogout = ()=>{
       {...props}
     >
       <>
-        <LogoWithButton/>
+        <LogoWithButton />
         <ToggleColorMode />
-        <button onClick={handleLogout}> loggout</button>
         <MenuToggle toggle={toggle} isOpen={isOpen} />
-        <MenuLinks isOpen={isOpen} />
+        {authUser ? (
+          <ProfileButton handleLogout={handleLogout} />
+        ) : (
+          <MenuLinks isOpen={isOpen} />
+        )}
       </>
     </Flex>
   );
@@ -50,6 +56,14 @@ const MenuToggle = ({ toggle, isOpen }) => {
     <Box display={{ base: "block", md: "none" }} onClick={toggle}>
       {isOpen ? <CloseIcon /> : <HamburgerIcon />}
     </Box>
+  );
+};
+
+const ProfileButton = ({ handleLogout }) => {
+  return (
+    <Button size="sm" rounded="md" onClick={handleLogout}>
+      Logout
+    </Button>
   );
 };
 
@@ -80,9 +94,9 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to="/sports">Sports</MenuItem>
         <MenuItem to="/loisirs">Loisirs</MenuItem>
         <MenuItem to="/travailgroupe">Travail De Groupe</MenuItem>
-        <MenuItem to="/register" isLast>
+        <MenuItem to="/profile" isLast>
           <Button size="sm" rounded="md">
-            Create Account
+            Profile
           </Button>
         </MenuItem>
       </Stack>

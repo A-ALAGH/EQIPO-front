@@ -12,7 +12,7 @@ import CardEvent from './components/cardEvent/CardEvent'
 import Footer from './components/footer/Footer'
 import { Routes, Route} from 'react-router-dom'
 import Home from './pages/Home'
-import Profil from './pages/Profil'
+import Profile from './pages/Profile'
 import SignUp from './pages/SignUpPage'
 import Login from './components/Login/Login'
 function App() {
@@ -24,6 +24,8 @@ function App() {
     <Route path='/' element ={<Home/>}/>
     <Route path='/register' element ={<SignUp/>}/>
     <Route path='/login' element ={<Login/>}/>
+    <Route path='/profile' element ={<Profile/>}/>
+
       
     </Routes>
     <Footer/>
