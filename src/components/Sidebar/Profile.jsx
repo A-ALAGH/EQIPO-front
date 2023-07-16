@@ -93,7 +93,7 @@ function Profile() {
           Abbas AGHILAS
         </Heading>
         <Text color="brand.gray" fontSize="sm">
-          CEO of EQIPO
+          Defender, Defensive Midfielder
         </Text>
       </VStack>
     </VStack>

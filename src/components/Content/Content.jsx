@@ -15,11 +15,7 @@ const Content = () => {
       d="flex"
       flexDir="column"
       justifyContent="space-between"
-      // pt={5}
-      // bg="white"
       rounded="md"
-      // borderWidth={1}
-      // borderColor="gray.200"
       style={{ transform: 'translateY(-100px)' }}
     >
       <Tabs>

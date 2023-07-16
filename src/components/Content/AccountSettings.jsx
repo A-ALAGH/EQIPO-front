@@ -1,4 +1,5 @@
-import { FormControl, FormLabel, Grid, Input, Select } from '@chakra-ui/react'
+import { FormControl, FormLabel, Grid, Input, Select } from '@chakra-ui/react';
+import cities from '../../assets/Wilayas.json';
 
 function AccountSettings() {
   return (
@@ -8,7 +9,7 @@ function AccountSettings() {
     >
       <FormControl id="firstName">
         <FormLabel>Pseudo</FormLabel>
-        <Input focusBorderColor="brand.blue" type="text" placeholder="Tim" />
+        <Input focusBorderColor="brand.blue" type="text" placeholder="AbbasALAGH" />
       </FormControl>
       <FormControl id="phoneNumber">
         <FormLabel>Phone Number</FormLabel>
@@ -29,29 +30,15 @@ function AccountSettings() {
       <FormControl id="city">
         <FormLabel>City</FormLabel>
         <Select focusBorderColor="brand.blue" placeholder="Select city">
-          <option value="california">California</option>
-          <option value="washington">Washington</option>
-          <option value="toronto">Toronto</option>
-          <option value="newyork" selected>
-            New York
-          </option>
-          <option value="london">London</option>
-          <option value="netherland">Netherland</option>
-          <option value="poland">Poland</option>
-        </Select>
-      </FormControl>
-      <FormControl id="country">
-        <FormLabel>Country</FormLabel>
-        <Select focusBorderColor="brand.blue" placeholder="Select country">
-          <option value="america" selected>
-            America
-          </option>
-          <option value="england">England</option>
-          <option value="poland">Poland</option>
+          {cities.map((city) => (
+            <option key={city.id} value={city.name}>
+              {city.name}
+            </option>
+          ))}
         </Select>
       </FormControl>
     </Grid>
-  )
+  );
 }
 
-export default AccountSettings
+export default AccountSettings;

@@ -30,6 +30,7 @@ export default function Login() {
 
       console.log(response.data);
       localStorage.token = response.data.token
+      localStorage.userId = response.data.user._id
 
     } catch (error) {
       console.error(error);
