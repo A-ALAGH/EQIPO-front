@@ -47,7 +47,8 @@ export default function JoinOurTeam() {
   const [formData, setFormData] = useState({
     pseudo: '',
     email: '',
-    password: ''
+    password: '',
+    phoneNumber: ''
   });
   const [pseudoError, setPseudoError] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -99,8 +100,13 @@ export default function JoinOurTeam() {
         return;
       }
 
-      const response = await axios.post('http://localhost:5000/api/user/register', formData);
-      console.log(response.data);
+      const response = await axios.post('http://localhost:5000/api/user/register', {
+        pseudo: formData.pseudo,
+        email: formData.email,
+        password: formData.password,
+        phoneNumber: formData.phoneNumber
+      });
+
       localStorage.token = response.data.token
       setSuccess(true);
 
@@ -228,6 +234,18 @@ export default function JoinOurTeam() {
                 onChange={handleChange}
               />
               {emailError && <Text color="red.500">{emailError}</Text>}
+              <Input
+                name="phoneNumber"
+                placeholder="Numéro de téléphone"
+                bg="gray.100"
+                border={0}
+                color="gray.500"
+                _placeholder={{
+                  color: 'gray.500',
+                }}
+                value={formData.phoneNumber}
+                onChange={handleChange}
+              />
               <div style={{ position: "relative" }}>
                 <Input
                   name="password"

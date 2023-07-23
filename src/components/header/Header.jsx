@@ -92,8 +92,8 @@ const MenuLinks = ({ isOpen }) => {
       >
         <MenuItem to="/">Home</MenuItem>
         <MenuItem to="/sports">Sports</MenuItem>
-        <MenuItem to="/loisirs">Loisirs</MenuItem>
-        <MenuItem to="/travailgroupe">Travail De Groupe</MenuItem>
+        <MenuItem to="/leisure">Loisirs</MenuItem>
+        <MenuItem to="/teamwork">Travail De Groupe</MenuItem>
         <MenuItem to="/profile" isLast>
           <Button size="sm" rounded="md">
             Profile
