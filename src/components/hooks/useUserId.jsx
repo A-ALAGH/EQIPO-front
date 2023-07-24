@@ -9,10 +9,12 @@ const RedirectToLogin = () => {
 
 const useUserId = () => {
   if (localStorage.token) {
-    const userId = localStorage.token;
-    return userId;
+    const token = localStorage.token;
+    const user = localStorage.user;
+    return {token,user};
   } else {
-    return <Navigate to="/login" replace />;
+    // return <Navigate to="/login" replace />;
+    window.location.href = "http://localhost:5173/login";
   }
 };
 

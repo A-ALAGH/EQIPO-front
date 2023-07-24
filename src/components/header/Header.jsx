@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
 import ToggleColorMode from "../toggleColorMode/toggleColorMode";
 import Logo from "../logo/Logo";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 
 const LogoWithButton = ({ text }) => {
@@ -19,12 +19,18 @@ const LogoWithButton = ({ text }) => {
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { authUser } = useAuthUser();
 
+  const [isConnected, setIsConnected] = useState(false);
+const navigate = useNavigate()
+  useEffect(()=>{
+    if(localStorage.token){
+      setIsConnected(true)
+    }else{
+      setIsConnected(false)
+    }
+  },[]);
   const toggle = () => setIsOpen(!isOpen);
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-  };
+ 
 
   return (
     <Flex
@@ -41,11 +47,11 @@ const NavBar = (props) => {
         <LogoWithButton />
         <ToggleColorMode />
         <MenuToggle toggle={toggle} isOpen={isOpen} />
-        {authUser ? (
+        {/* {isConnected ? (
           <ProfileButton handleLogout={handleLogout} />
-        ) : (
-          <MenuLinks isOpen={isOpen} />
-        )}
+        ) : ( */}
+          <MenuLinks isOpen={isOpen} isConnected={isConnected} />
+        {/* )} */}
       </>
     </Flex>
   );
@@ -77,7 +83,13 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   );
 };
 
-const MenuLinks = ({ isOpen }) => {
+const MenuLinks = ({ isOpen, isConnected }) => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate('/login')
+
+  };
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -94,11 +106,24 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to="/sports">Sports</MenuItem>
         <MenuItem to="/leisure">Loisirs</MenuItem>
         <MenuItem to="/teamwork">Travail De Groupe</MenuItem>
-        <MenuItem to="/profile" isLast>
-          <Button size="sm" rounded="md">
+      
+        {
+        isConnected ? <>
+
+           <MenuItem to="/profile" isLast> <Button size="sm" rounded="md">
             Profile
-          </Button>
-        </MenuItem>
+          </Button></MenuItem>
+       
+        </>
+     
+         : <>
+         <MenuItem to="/login"><Button size="sm" rounded="md">
+            login
+          </Button></MenuItem>
+      
+         </>}
+          
+        
       </Stack>
     </Box>
   );

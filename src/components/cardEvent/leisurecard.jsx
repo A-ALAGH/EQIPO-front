@@ -1,9 +1,11 @@
 import React from 'react';
 import { Box, Center, Heading, Text, Stack, Avatar, useColorModeValue, Image } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export default function LeisureEvent() {
   return (
     <Center py={6}>
+      <Link to="/leisure">
       <Box maxW="445px" w="full" bg={useColorModeValue('white', 'gray.900')} boxShadow="2xl" rounded="md" p={6} overflow="hidden">
         <Box h="210px" bg="gray.100" mt={-6} mx={-6} mb={6} pos="relative">
           <Image src="../../../public/img/leisurebg.png" h="100%" w="100%" bg={useColorModeValue('white', 'gray.900')} />
@@ -16,7 +18,7 @@ export default function LeisureEvent() {
             Créez et participez à des evenements prés de chez vous
           </Heading>
         </Stack>
-      </Box>
+      </Box></Link>
     </Center>
   );
 }

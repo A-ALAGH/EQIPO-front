@@ -31,7 +31,7 @@ const EventShow = () => {
 
         <CardFooter>
           <Button variant='solid' colorScheme='blue'>
-            Buy Latte
+            Participer
           </Button>
         </CardFooter>
       </Stack>

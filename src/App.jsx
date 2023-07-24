@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import Header from './components/header/Header'
 import {AuthProvider} from 'react-auth-kit'
-import { Flex, VStack, Heading } from "@chakra-ui/layout"
-import {FaSun, FaMoon, FaFacebook} from 'react-icons/fa'
-import Carousel from './components/carousel/carousel'
-import { Card, IconButton } from '@chakra-ui/react'
-import { useColorMode } from '@chakra-ui/color-mode';
-import { Button, SimpleGrid, Center } from '@chakra-ui/react'
-import CardEvent from './components/cardEvent/leisurecard'
+// import { Flex, VStack, Heading } from "@chakra-ui/layout"
+// import {FaSun, FaMoon, FaFacebook} from 'react-icons/fa'
+// import Carousel from './components/carousel/carousel'
+// import { Card, IconButton } from '@chakra-ui/react'
+// import { useColorMode } from '@chakra-ui/color-mode';
+// import { Button, SimpleGrid, Center } from '@chakra-ui/react'
+// import CardEvent from './components/cardEvent/leisurecard'
 import Footer from './components/footer/Footer'
 import { Routes, Route} from 'react-router-dom'
 import Home from './pages/Home'
@@ -40,7 +40,6 @@ function App() {
 
       
     </Routes>
-    <EventShow/>
     <Footer/>
 
 

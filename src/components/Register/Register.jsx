@@ -1,5 +1,4 @@
-import { useState } from "react";
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuthUser } from 'react-auth-kit';
 import {
@@ -15,9 +14,15 @@ import {
   Avatar,
   AvatarGroup,
   useBreakpointValue,
-  Icon
+  Icon,
+  FormControl,
+  FormLabel,
+  Select,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import cities from '../../assets/Wilayas.json';
+import { useNavigate } from 'react-router-dom';
+
 
 const avatars = [
   {
@@ -43,6 +48,7 @@ const avatars = [
 ];
 
 export default function JoinOurTeam() {
+  const navigate = useNavigate();
   const authUser = useAuthUser();
   const [formData, setFormData] = useState({
     pseudo: '',
@@ -104,15 +110,17 @@ export default function JoinOurTeam() {
         pseudo: formData.pseudo,
         email: formData.email,
         password: formData.password,
-        phoneNumber: formData.phoneNumber
+        phoneNumber: formData.phoneNumber,
+        city: formData.city
       });
 
       localStorage.token = response.data.token
+      localStorage.user = response.data.user
       setSuccess(true);
+      console.log(res.data);
+      navigate('/')
 
-      // Connexion de l'utilisateur après son inscription
-      // authUser.setToken(response.data.token); // Assurez-vous que votre API renvoie le token d'authentification
-      // authUser().setExpiresAt(response.data.expiresAt); // Assurez-vous que votre API renvoie la date d'expiration du token
+
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         setError(error.response.data.message);
@@ -278,6 +286,27 @@ export default function JoinOurTeam() {
               </div>
               {passwordError && <Text color="red.500">{passwordError}</Text>}
             </Stack>
+            <FormControl id="city">
+                  <FormLabel>City</FormLabel>
+                  <Select
+                    focusBorderColor="brand.blue"
+                    placeholder="Select city"
+                    bg="gray.100"
+                    border={0}
+                    color="gray.500"
+                    _placeholder={{
+                      color: 'gray.500',
+                    }}
+                    value={formData.city ? formData.city : ''}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  >
+                    {cities.map(city => (
+                      <option key={city.id} value={city.name}>
+                        {city.name}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
             <Button
               fontFamily="heading"
               mt={8}

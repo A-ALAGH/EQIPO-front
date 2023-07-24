@@ -5,6 +5,7 @@ import './carousel.css';
 import sportImg from '../../assets/sport.jpg';
 import loisirImg from '../../assets/loisir.jpg';
 import teamWorkImg from '../../assets/teamwork.jpg';
+import { Link } from 'react-router-dom';
 
 class Carousel extends Component {
   constructor(props) {
@@ -84,7 +85,10 @@ class Carousel extends Component {
               timeout={300}
             >
               <div className="carousel_slide">
-                <img src={src} alt={`Slide ${current + 1}`} />
+                <Link to={""}>
+                    <img src={src} alt={`Slide ${current + 1}`} />
+                </Link>
+            
               </div>
             </CSSTransition>
           </TransitionGroup>

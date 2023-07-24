@@ -13,6 +13,7 @@ import {
   Image,
 } from '@chakra-ui/react';
 
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,8 +31,8 @@ export default function Login() {
 
       console.log(response.data);
       localStorage.token = response.data.token
-      localStorage.userId = response.data.user._id
-
+      localStorage.user = response.data.user._id
+      window.location.href = "http://localhost:5173/";
     } catch (error) {
       console.error(error);
     }
@@ -53,8 +54,8 @@ export default function Login() {
             </FormControl>
             <Stack spacing={6}>
               <Stack direction={{ base: 'column', sm: 'row' }} align="start" justify="space-between">
-                <Checkbox>Remember me</Checkbox>
-                <Link color="blue.500">Forgot password?</Link>
+             
+                <Link href='/register' color="blue.500">Not member?</Link>
               </Stack>
               <Button colorScheme="blue" variant="solid" type="submit">
                 Sign in

@@ -5,7 +5,7 @@ import Actions from './Actions'
 import CompanySettings from './CompanySettings'
 
 const Content = () => {
-  const tabs = ['Account Settings', 'Company Settings', 'Notifications']
+  const tabs = ['Account Settings']
 
   return (
     <Box
@@ -46,7 +46,7 @@ const Content = () => {
         </TabPanels>
       </Tabs>
 
-      <Actions />
+      {/* <Actions /> */}
     </Box>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   Avatar,
   AvatarBadge,
@@ -17,10 +17,30 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
+import useUserId from '../hooks/useUserId'
+import axios from 'axios'
 
 function Profile() {
   const [userProfile, setUserProfile] = useState(null)
-
+  const [userData, setUserData] = useState({
+    pseudo: '',
+    email: '',
+    phoneNumber: '',
+    city: ''
+  });
+  const {user} = useUserId()
+  useEffect(() => {
+    // const userId = localStorage.getItem('user');
+   
+      axios.get(`http://localhost:5000/api/user/${user}`)
+        .then(response => {
+          setUserData(response.data);
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des données utilisateur:', error);
+        });
+ 
+  }, []);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const profileImage = useRef(null)
 
@@ -45,7 +65,7 @@ function Profile() {
     <VStack spacing={3} py={5} borderBottomWidth={1} borderColor="brand.light">
       <Avatar
         size="2xl"
-        name="Abbas ALAGH"
+        name={"ffff"}
         cursor="pointer"
         onClick={openChooseImage}
         src={userProfile ? userProfile : 'http://localhost:5000/images/logo.png'}
@@ -90,10 +110,10 @@ function Profile() {
       </Modal>
       <VStack spacing={1}>
         <Heading as="h3" fontSize="xl" >
-          Abbas AGHILAS
+          {userData?.pseudo}
         </Heading>
         <Text color="brand.gray" fontSize="sm">
-          Defender, Defensive Midfielder
+          {userData?.bio}
         </Text>
       </VStack>
     </VStack>
