@@ -5,7 +5,6 @@ import './carousel.css';
 import sportImg from '../../assets/sport.jpg';
 import loisirImg from '../../assets/loisir.jpg';
 import teamWorkImg from '../../assets/teamwork.jpg';
-import { Link } from 'react-router-dom';
 
 class Carousel extends Component {
   constructor(props) {
@@ -15,6 +14,11 @@ class Carousel extends Component {
         sportImg,
         loisirImg,
         teamWorkImg,
+        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/HA1RQCRQJ7.jpg',
+        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/EVHXF4MUT6.jpg',
+        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/D7VE3SK3RD.jpg',
+        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/0XRFUE80AZ.jpg',
+        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/2DQJJ9RLVD.jpg'
       ],
       current: 0,
       isNext: true
@@ -80,10 +84,7 @@ class Carousel extends Component {
               timeout={300}
             >
               <div className="carousel_slide">
-                <Link to={""}>
-                    <img src={src} alt={`Slide ${current + 1}`} />
-                </Link>
-            
+                <img src={src} alt={`Slide ${current + 1}`} />
               </div>
             </CSSTransition>
           </TransitionGroup>
