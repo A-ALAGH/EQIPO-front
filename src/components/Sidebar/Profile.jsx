@@ -65,7 +65,7 @@ function Profile() {
     <VStack spacing={3} py={5} borderBottomWidth={1} borderColor="brand.light">
       <Avatar
         size="2xl"
-        name={"ffff"}
+        name={userData?.pseudo}
         cursor="pointer"
         onClick={openChooseImage}
         src={userProfile ? userProfile : 'http://localhost:5000/images/logo.png'}

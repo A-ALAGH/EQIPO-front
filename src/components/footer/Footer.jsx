@@ -3,7 +3,6 @@ import {
   Box,
   chakra,
   Container,
-  Link,
   Stack,
   Text,
   useColorModeValue,
@@ -12,6 +11,7 @@ import {
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import Logo from '../logo/Logo'
 import ToggleColorMode from '../toggleColorMode/toggleColorMode';
+import {Link} from "react-router-dom"
 
 
 // const Logo = (props) => {
@@ -54,10 +54,10 @@ export default function SmallCentered() {
       <ToggleColorMode />
         <Logo/>
         <Stack direction="row" spacing={6}>
-          <Link href="#">Home</Link>
-          <Link href="#">About</Link>
-          <Link href="#">Blog</Link>
-          <Link href="#">Contact</Link>
+        <Link to="/">Home</Link>
+        <Link to="/sports">Sports</Link>
+        <Link to="/leisure">Loisirs</Link>
+        <Link to="/teamwork">Travail De Groupe</Link>
         </Stack>
       </Container>
       <Box borderTopWidth={1} borderStyle="solid" borderColor={useColorModeValue('gray.200', 'gray.700')}>

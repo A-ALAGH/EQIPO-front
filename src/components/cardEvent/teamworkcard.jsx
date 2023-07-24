@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function teamworkEvent() {
   return (
-    <Center py={6}>
+    <Center py={6} className='hover:scale-105 transition-all duration-300 ease-in-out'>
       <Link to="/teamwork">
 
       <Box maxW="445px" w="full" bg={useColorModeValue('white', 'gray.900')} boxShadow="2xl" rounded="md" p={6} overflow="hidden">

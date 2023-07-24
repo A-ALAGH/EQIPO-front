@@ -58,7 +58,7 @@ export default function CreateSportEvent() {
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={4} w="full" maxW="md">
-          <Heading fontSize="2xl">Create a Sport Event</Heading>
+          <Heading fontSize="2xl" color="green.500">Create a Sport Event</Heading>
           <FormControl id="activité">
             <FormLabel>Activité</FormLabel>
             <Input type="text" value={activité} onChange={(e) => setActivité(e.target.value)} />

@@ -17,7 +17,11 @@ import Login from './components/Login/Login'
 import SportEventForm from './components/EventForm/SportEventForm'
 import LeisureEventForm from './components/EventForm/LeisureEventForm'
 import TeamWorkEventForm from './components/EventForm/TeamWorkEventForm'
-import EventShow from './components/EventShow/EventShow'
+import Sports from './pages/Sports'
+import './App.css'
+import Teamworks from './pages/Teamwork'
+import Leisures from './pages/Leisure'
+// import EventShow from './components/EventShow/EventShow'
 
 
 function App() {
@@ -30,9 +34,15 @@ function App() {
     <Route path='/register' element ={<SignUp/>}/>
     <Route path='/login' element ={<Login/>}/>
     <Route path='/profile' element ={<Profile/>}/>
-    <Route path='/sports' element ={<SportEventForm/>}/>
-    <Route path='/leisure' element ={<LeisureEventForm/>}/>
-    <Route path='/teamwork' element ={<TeamWorkEventForm/>}/>
+    <Route path='/sport/add' element ={<SportEventForm/>}/>
+    <Route path='/leisure/add' element ={<LeisureEventForm/>}/>
+    <Route path='/teamwork/add' element ={<TeamWorkEventForm/>}/>
+
+
+    <Route path='/sports' element ={<Sports/>}/>
+    <Route path='/teamwork' element ={<Teamworks/>}/>
+    <Route path='/leisure' element ={<Leisures/>}/>
+    
    
 
 
