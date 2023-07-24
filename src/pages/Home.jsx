@@ -13,9 +13,9 @@ export default class Home extends Component {
       <div>
     <Carousel/>
 
-    <SimpleGrid columns={3} minChildWidth="160px" spacing="10px" >
+    {/* <SimpleGrid columns={3} minChildWidth="160px" spacing="10px" >
     <SportEvent/> <LeisureEvent/> <TeamworkEvent/>
-    </SimpleGrid>
+    </SimpleGrid> */}
 
       </div>
     )

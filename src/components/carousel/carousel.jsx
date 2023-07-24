@@ -1,137 +1,143 @@
-import React, { Component } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import './carousel.css';
+'use strict';
 
-import sportImg from '../../assets/sport.jpg';
-import loisirImg from '../../assets/loisir.jpg';
-import teamWorkImg from '../../assets/teamwork.jpg';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Box,
+  IconButton,
+  useBreakpointValue,
+  Stack,
+  Heading,
+  Text,
+  Container,
+} from '@chakra-ui/react';
+// Here we have used react-icons package for the icons
+import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+// And react-slick as our Carousel Lib
+import Slider from 'react-slick';
+import sportimg from '../../assets/sportc.jpg'
+import leisureimg from '../../assets/leisurec.jpg'
+import teamworkimg from '../../assets/teamworkc.jpg'
 
-class Carousel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [
-        sportImg,
-        loisirImg,
-        teamWorkImg,
-        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/HA1RQCRQJ7.jpg',
-        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/EVHXF4MUT6.jpg',
-        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/D7VE3SK3RD.jpg',
-        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/0XRFUE80AZ.jpg',
-        // 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/2DQJJ9RLVD.jpg'
-      ],
-      current: 0,
-      isNext: true
-    };
-  }
+// Settings for the slider
+const settings = {
+  dots: true,
+  arrows: false,
+  fade: true,
+  infinite: true,
+  autoplay: true,
+  speed: 500,
+  autoplaySpeed: 5000,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
 
-  handlerPrev = () => {
-    let index = this.state.current;
-    const length = this.state.items.length;
+export default function Carousel() {
+  // As we have used custom buttons, we need a reference variable to
+  // change the state
+  const [slider, setSlider] = React.useState(null);
 
-    if (index < 1) {
-      index = length;
-    }
+  // These are the breakpoints which changes the position of the
+  // buttons as the screen size changes
+  const top = useBreakpointValue({ base: '90%', md: '50%' });
+  const side = useBreakpointValue({ base: '30%', md: '40px' });
 
-    index = index - 1;
+  // This list contains all the data for carousels
+  // This can be static or loaded from a server
+  const cards = [
+    {
+      title: 'Design Projects 1',
+      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      image:
+      sportimg,
+      url:'./sports'
+    },
+    {
+      title: 'Design Projects 2',
+      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      image:
+      leisureimg,
+      url:'./leisure'
+    },
+    {
+      title: 'Design Projects 3',
+      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      image:
+        teamworkimg,
+      url:'./teamwork'
+    },
+  ];
 
-    this.setState({
-      current: index,
-      isNext: false
-    });
-  };
-
-  handlerNext = () => {
-    let index = this.state.current;
-    const length = this.state.items.length - 1;
-
-    if (index === length) {
-      index = -1;
-    }
-
-    index = index + 1;
-
-    this.setState({
-      current: index,
-      isNext: true
-    });
-  };
-
-  goToHistoryClick = (curIndex, index) => {
-    const next = curIndex < index;
-    this.setState({
-      current: index,
-      isNext: next
-    });
-  };
-
-  render() {
-    const { current, isNext, items } = this.state;
-    const src = items[current];
-
-    return (
-      <div className="app">
-        <div className="carousel">
-          <TransitionGroup>
-            <CSSTransition
-              key={current}
-              classNames={{
-                enter: isNext ? 'enter-next' : 'enter-prev',
-                enterActive: 'enter-active',
-                exit: 'leave',
-                exitActive: isNext ? 'leave-active-next' : 'leave-active-prev'
-              }}
-              timeout={300}
-            >
-              <div className="carousel_slide">
-                <img src={src} alt={`Slide ${current + 1}`} />
-              </div>
-            </CSSTransition>
-          </TransitionGroup>
-          <button
-            className="carousel_control carousel_control__prev"
-            onClick={this.handlerPrev}
-          >
-            <span></span>
-          </button>
-          <button
-            className="carousel_control carousel_control__next"
-            onClick={this.handlerNext}
-          >
-            <span></span>
-          </button>
-          <div className="carousel_history">
-            <History
-              current={current}
-              items={items}
-              changeSlide={this.goToHistoryClick}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
+  return (
+    <Box position={'relative'} height={'600px'} width={'full'} overflow={'hidden'}>
+      {/* CSS files for react-slick */}
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+      />
+      {/* Left Icon */}
+      <IconButton
+        aria-label="left-arrow"
+        variant="ghost"
+        position="absolute"
+        left={side}
+        top={top}
+        transform={'translate(0%, -50%)'}
+        zIndex={2}
+        onClick={() => slider?.slickPrev()}>
+        <BiLeftArrowAlt size="40px" />
+      </IconButton>
+      {/* Right Icon */}
+      <IconButton
+        aria-label="right-arrow"
+        variant="ghost"
+        position="absolute"
+        right={side}
+        top={top}
+        transform={'translate(0%, -50%)'}
+        zIndex={2}
+        onClick={() => slider?.slickNext()}>
+        <BiRightArrowAlt size="40px" />
+      </IconButton>
+      {/* Slider */}
+      <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        {cards.map((card, index) => (
+          <Link to={card.url} key={index}>
+          <Box
+            key={index}
+            height={'600px'}
+            position="relative"
+            backgroundPosition="center"
+            backgroundRepeat="no-repeat"
+            backgroundSize="cover"
+            backgroundImage={`url(${card.image})`}>
+            {/* This is the block you need to change, to customize the caption */}
+            <Container size="lg" height="600px" position="relative">
+              <Stack
+                spacing={6}
+                w={'full'}
+                maxW={'lg'}
+                position="absolute"
+                top="50%"
+                transform="translate(0, -50%)">
+                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                  {card.title}
+                </Heading>
+                <Text fontSize={{ base: 'md', lg: 'lg' }} color="gray.500">
+                  {card.text}
+                </Text>
+              </Stack>
+            </Container>
+          </Box>
+          </Link>
+        ))}
+      </Slider>
+    </Box>
+  );
 }
-
-class History extends Component {
-  render() {
-    const { current, items, changeSlide } = this.props;
-
-    const historyItems = items.map((el, index) => {
-      const name = index === current ? 'active' : '';
-
-      return (
-        <li key={index}>
-          <button
-            className={name}
-            onClick={() => changeSlide(current, index)}
-          ></button>
-        </li>
-      );
-    });
-
-    return <ul>{historyItems}</ul>;
-  }
-}
-
-export default Carousel;
